@@ -1,15 +1,44 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import Error from './Error';
 
-const Question = () => {
+const Question = ({setBudget, setBalance}) => {
+
+    // State define
+    const [ quantity, setQuantity ] = useState(0);
+    const [ error, setError ] = useState(false);
+    // Function that read the budget
+    const defineBudget = event => {
+        setQuantity( parseInt(event.target.value, 10));
+    }
+
+    // Submit to define the budget
+    const addBudget = event => {
+        event.preventDefault();
+
+        //Validate
+        if(quantity < 1 || isNaN( quantity )){
+            setError(true);
+            return;
+        }
+        // If validation is passed
+        setError(false);
+        setBudget(quantity);
+        setBalance(quantity);
+
+    }
+
     return (  
         <Fragment>
             <h2> Insert your budget </h2>
-
-            <form>
+            {error?  <Error message="Incorrect budget"/> : null }
+            <form 
+                onSubmit={addBudget}
+            >    
                 <input
                     type="number"
                     className="u-full-width"
                     placeholder="Insert your budget"
+                    onChange={defineBudget}
                 />
                 <input 
                     type="submit"

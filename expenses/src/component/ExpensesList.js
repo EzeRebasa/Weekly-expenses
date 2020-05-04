@@ -1,5 +1,6 @@
 import React from 'react';
 import Expense from './Expense';
+import PropTypes from 'prop-types';
 
 const ExpensesList = ({expenses}) =>  (
     <div className="made-expenses">
@@ -13,4 +14,8 @@ const ExpensesList = ({expenses}) =>  (
     </div>
 );
  
+ExpensesList.propTypes = {
+    expenses: PropTypes.array.isRequired
+}
+
 export default ExpensesList;

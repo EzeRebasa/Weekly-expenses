@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import Error from './Error';
+import PropTypes from 'prop-types';
 import shortid from 'shortid';
+import Error from './Error';
+
 
 const Form = ({setExpense, setCreateExpense}) => {
 
@@ -14,6 +16,7 @@ const Form = ({setExpense, setCreateExpense}) => {
 
         // To validate
         if(quantity < 1 || isNaN( quantity ) || name.trim() === '') {
+         
            setError(true);
            return; 
         }
@@ -28,6 +31,7 @@ const Form = ({setExpense, setCreateExpense}) => {
         // Pass the expense to the main component
         setExpense(expense);
         setCreateExpense(true);
+
         // Reset form
         setName('');
         setQuantity(0);
@@ -58,7 +62,7 @@ const Form = ({setExpense, setCreateExpense}) => {
                     className="u-full-width"
                     placeholder="Ex. 300"
                     value={quantity}
-                    onChange={ e => setQuantity(parseInt(e.target.value, 10))}
+                    onChange={ e => setQuantity(e.target.value,10)}
                 />
             </div>
 
@@ -70,5 +74,11 @@ const Form = ({setExpense, setCreateExpense}) => {
         </form>
      );
 }
+
+Form.propTypes = {
+    setExpense: PropTypes.func.isRequired,
+    setCreateExpense: PropTypes.func.isRequired
+}
+
  
 export default Form;
